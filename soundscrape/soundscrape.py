@@ -350,6 +350,11 @@ def download_track(track, album_name=u'', keep_previews=False, folders=False, fi
              genre=track['genre'],
              album=album_name,
              artwork_url=track['artwork_url'])
+    
+    audiofile = eyed3.load(str(track_filename))
+    audiofile.tag.track_num = i + 1
+    audiofile.tag.save()
+    
     if not tagged:
         wav_filename = filename[:-3] + 'wav'
         os.rename(filename, wav_filename)
